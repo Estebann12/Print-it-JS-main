@@ -160,5 +160,26 @@ function shiftAndShow(shiftDirection, arrayToShift) {
 	let dotToActive = divDots.querySelector(`:nth-child(${slideNumber})`);
 	//activate this dot by adding .dot_selected class
 	dotToActive.classList.add("dot_selected");
-  };
+  }
   
+  //---------------------------------//
+  //      click event Listener       //
+  //---------------------------------//
+  
+  document.addEventListener("click", function (clicBanner) {
+	//click on left arrow
+	if (clicBanner.target.matches(".arrow_left")) {
+	  shiftDirection = "left";
+	  //call 2 functions
+	  activeDot(shiftDirection);
+	  shiftAndShow(shiftDirection, slidesToShow);
+	 
+	}
+	//click on right arrow
+	if (clicBanner.target.matches(".arrow_right")) {
+	  shiftDirection = "right";
+	  activeDot(shiftDirection);
+	  shiftAndShow(shiftDirection, slidesToShow);
+	  
+	}
+  });
