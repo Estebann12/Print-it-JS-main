@@ -17,4 +17,14 @@ const slides = [
 	}
 ];
 
+//--------------------------------//
+//           variables            //
+//--------------------------------//
+
+//initialise for global scope
+let shiftDirection = null;
+//copy slides for work on copy
+let slidesToShow = Array.from(slides);
+// initialize slideNumber
+let slideNumber = 1;
 
