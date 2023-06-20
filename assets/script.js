@@ -93,5 +93,72 @@ for (let i = 0; i < slidesToShow.length; i++) {
   if (i === 0) {
     divDot.classList.add("dot_selected");
   }
-};
+}
 
+//---------------------------------//
+//            functions            //
+//---------------------------------//
+
+//--- function "shift and show" ---//
+
+/**
+ * This function takes an array of objects and moves the first element
+ * to the right or to the left according to shiftDirection value
+ * @param {string} shiftDirection - values : "left" , "right"
+ * @param {array} arrayToShift - takes an array of objects as argument
+ */
+
+function shiftAndShow(shiftDirection, arrayToShift) {
+	//shift:
+	//elements to show will ever be the first one of the arrayToShift
+  
+	if (shiftDirection === "left") {
+	  //pop() method remove and return the last element of an array
+	  //unshift method add a new item at the beginning on an array
+	  //move elements in array to the left
+	  //example : fruits = [apple, strawberry, raspberry] --> fruits = [raspberry, apple, strawberry]
+	  arrayToShift.unshift(arrayToShift.pop());
+	}
+	if (shiftDirection === "right") {
+	  //shift() method remove and return the first element of an array
+	  //push method add a new item to the end of an array
+	  //move elements in array to the right
+	  //example : fruits = [apple, strawberry, raspberry] --> fruits = [strawberry, raspberry, apple]
+	  arrayToShift.push(arrayToShift.shift());
+	}
+	//Show:
+	//change src img according to list
+	bannerImg.src = `./assets/images/slideshow/${arrayToShift[0].image}`;
+	//change alt img attribute according to slide number
+	bannerImg.setAttribute("alt", `slide-picture-${slideNumber}`);
+	//change banner tagline according to list
+	bannerTagLine.innerHTML = arrayToShift[0].tagLine;
+  }
+  
+  //----- function "active Dot" -----//
+  
+  /**
+   *  this function unset current .dot_selected class
+   *  and set it to a new one according to the slide number
+   * @param {string} shiftDirection - values : "left" , "right"
+   */
+  
+  function activeDot(shiftDirection) {
+	if (shiftDirection === "left") {
+	  //infinite count 1-4-3-2-1... for dot activation
+	  slideNumber === 1 ? (slideNumber = slides.length) : slideNumber--;
+	}
+	if (shiftDirection === "right") {
+	  //infinite count 1-2-3-4-1... for dot activation
+	  slideNumber === slides.length ? (slideNumber = 1) : slideNumber++;
+	}
+	//select dot active
+	let dotActive = document.querySelector(".dot_selected");
+	//desactive dot by removing .dot_selected class
+	dotActive.classList.remove("dot_selected");
+	//select dot according to slide number
+	let dotToActive = divDots.querySelector(`:nth-child(${slideNumber})`);
+	//activate this dot by adding .dot_selected class
+	dotToActive.classList.add("dot_selected");
+  };
+  
